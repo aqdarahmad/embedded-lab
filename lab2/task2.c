@@ -1,4 +1,9 @@
-//Task#1: display the numbers 00, 01, 02 ,.....00,01,..etc.  Change the number every 300ms
+//Task2: Display the number 50.
+// Each time SW0 (RD0) is presses, the displayed number is incremented by 10(up to 90). 
+//Each time SW1 (RD1) is presses, the displayed number is decremented by 10 (down to 00). 
+
+
+
 
 #include <xc.h>
 #include <pic18f4550.h> 
@@ -25,23 +30,44 @@ void main(void)
  TRISA=0X00;
  TRISB=0X00;
  unsigned char i,j;
+TRISDbits.TRISD0=1;//increment
+TRISDbits.TRISD1=1;//decrement
+unsigned char rd0old=0;
+unsigned char rd1old=0;
+unsigned char num=5;
+
 
     while (1)
     {
-        
-       for(i=0;i<10;i++)
-       {
-        for(j=0;j<150;j++)
-        {     PORTA=0;
-              PORTB=arr[0];
-               PORTA=0X01;
-             __delay_ms(1);
-             PORTA=0;
-             PORTB=arr[i];
-             PORTA=0X02;
-             __delay_ms(1);
-        }
-       }
+
+        PORTA=0X00;
+        PORTB=arr[num];
+        PORTA=0X01;
+        __delay_ms(1);
+        PORTA=0X00;
+        PORTB=arr[0];
+        PORTA=0X02;
+        __delay_ms(1);
+
+        if(PORTDbits.RD0==1 && rd0old==0)
+        {  
+           if(num<9)
+           num++;
+             __delay_ms(2);
+        }   
+        rd0old =  PORTDbits.RD0;
+
+        if(PORTDbits.RD1==1 && rd1old==0)
+        {
+          
+           if(num>0)
+           num--;
+           __delay_ms(2);
+        }   
+        rd1old =  PORTDbits.RD1;
+
+
+
     }
     return;
 }

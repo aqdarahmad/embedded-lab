@@ -3,6 +3,7 @@
 
 //SW0: Shift the word one position to the left
 //SW1: Shift the word one position to the right
+// portd used for sw0 ans sw1
 
 #include <xc.h> 
 #include <pic18f4550.h>
@@ -59,15 +60,39 @@ void main(void)
 { 
   TRISB = 0X00;
   LCD_Init();
-
+  TRISDbits.TRISD0 = 1;
+  TRISDbits.TRISD1 = 1;
+  int pos = 0xC3;
+  int rd0 = 0;
+  int rd1 = 0;
+  //
+    send_cmd(0x01);
+    send_cmd(0x80);
+    send_data('H');
+    send_data('i');
   while(1)
   {
-    for(unsigned int i=0;i<6;i++)
-    {  send_cmd(0x80);
-        send_data(data[i]);
-        send_data('1');
-        __delay_ms(300);
+    
+    if(PORTDbits.RD0 ==  1 && rd0 == 0)
+    {  if(pos > 0xC0)
+        pos--;
+       
+
     }
+        rd0 = PORTDbits.RD0;
+        
+      if(PORTDbits.RD1 ==  1 && rd1 == 0)
+    {   if(pos < 0xC7)
+        pos++;
+       
+        
+    }
+        rd1 = PORTDbits.RD1;
+        send_cmd(pos);
+        send_data('H');
+        send_data('i');
+      
+    
   }  
         
 

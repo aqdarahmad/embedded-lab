@@ -1,4 +1,71 @@
 //A. TASK 1: Use the keypad so that Key "4" turn on the odd LEDs and Key "6" turn on the even LEDs.
+
+
+// keybad 
+//   B0 B1 B2
+// B4  1  2  3
+// B5  4  5  6
+// B6  7  8  9
+// B7  *  0  #
+
+// to press key 6
+//portb = 0 1 2 3 4 5 6 7 are 8 bits
+//1. set row to input and coulmn to output
+// 2 check key
+// TRISB=0XF0;
+
+// PORTB = 0b00000100;
+// if(PORTBbits.RB5 == 1)
+
+
+// TRISB FOR KEYBAD 
+// TRISD FOR LEDS
+// TRISb=0xf0h
+// void main(void)
+{
+  trisd=0x00;
+  TRISB=0xf0;
+  while(1)
+  {
+    portb=0b00000001;
+    if(portbbits.rb4)
+    {
+      portd=0b10101010;
+        __delay_ms(20);
+    }
+     portb=0b00000100;
+    if(portbbits.rb5)
+    {
+      portd=0b01010101;
+      __delay_ms(20);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <xc.h> 
 #include <pic18f4550.h>
 #define _XTAL_FREQ 8000000

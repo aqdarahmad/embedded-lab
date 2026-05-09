@@ -2,6 +2,46 @@
 //Display the sequence A1, B1, C1, ..., F1, updating the display every 300 ms.
 
 
+
+char arr[6]={'A','B','C','D','E','F'};
+
+void main()
+{
+  for(unsigned iny j=0;j<6;j++)
+  { send_cmd(0x80);
+    send_data(arr[i]);
+    send_data('1');
+    __delay_ms(300);
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <xc.h> 
 #include <pic18f4550.h>
 #define _XTAL_FREQ 8000000

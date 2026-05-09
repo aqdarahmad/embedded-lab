@@ -2,6 +2,75 @@
 //Display the message "Welcome" centered on the first line of the screen.
 
 
+
+
+
+
+
+
+
+
+
+
+void send_data(unsigned char data)
+{
+  portb=0;
+  portbbits.rb4=1;
+  portb=portb | (data<<4);
+  portbbits.rb5=1;
+  __delay_ms(40);
+  portbbits.rb5=0;
+  portb=portb|0xf0;
+  portb=portb|(data & 0x0f);
+  portbbits.rb5=1;
+  __delay_ms(40);
+  portbbits.rb5=0;
+  __delay_ms(100);
+}
+
+
+
+
+
+
+void main(void)
+{
+  TRISB=0X00;
+  LCD_init();
+  send_cmd(0x80);
+  send_data('w');
+  send_data('e');
+  send_data('l');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <xc.h> 
 #include <pic18f4550.h>
 #define _XTAL_FREQ 8000000
@@ -9,6 +78,18 @@
 #pragma config FOSC = HS 
 #pragma config WDT = OFF
 #pragma config LVP = OFF 
+data = h= 68 = 0110 1000 
+0011 0100
+0001 1101
+0000 1110
+0000 0110
+data>>4 
+
+0000 0110 
+
+1 send higher nibble 
+portb = 0001 0110 
+
 
 
 

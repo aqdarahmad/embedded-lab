@@ -4,6 +4,61 @@
 
 
 
+void main()
+{
+    TRISB=0X00;
+    TRISA=0X00;
+    TRISDbits.RD0=1;
+    TRISDbits.RD1=1;
+    unsigned int i=5;
+    unsigned char rd0old=0;
+    unsigned char rd1old=0;
+
+
+    while(1)
+    {
+        PORTA=0X01;
+        PORTB=arr[0];
+        __delay_ms(1);
+        PORTA=0X02;
+        PORTB=arr[i];
+        __delay_ms(1);
+
+        if(PORTDbits.RD0==1 && rd0old==0)
+        {
+               if(i<9)
+               i++;
+        }
+        rd0old=PORTDbits.RD0;
+
+            if(PORTDbits.RD1==1 && rd1old==0)
+        {
+               if(i>0)
+               i--;
+        }
+        rd1old=PORTDbits.RD1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include <xc.h>
 #include <pic18f4550.h> 

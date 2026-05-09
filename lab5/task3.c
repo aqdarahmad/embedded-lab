@@ -5,6 +5,57 @@
 //SW1: Shift the word one position to the right
 // portd used for sw0 ans sw1
 
+
+
+
+
+
+void main(void)
+{
+  unsigned char c=6;
+  unsigned char rd0=0;
+  unsigned char rd1=0;
+  TRISB=0X00;
+  TRISDbits.RD0=1;
+  TRISDbits.RD1=1;
+  lcd_init();
+
+  send_cmd(0xc0+c);
+  send_data('H');
+  send_data('i');
+
+  while(1)
+  {
+    if(PORTDbits.RD0 == 1 && rd0 == 0)
+    {
+      if(c>14)
+      c++;
+    }
+    PORTDbits.RD0=rd0;
+    if(PORTDbits.RD1==1 && rd1==0)
+    {
+      if(c>0)
+      c--;
+    }
+    PORTDbits.RD1=rd1;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <xc.h> 
 #include <pic18f4550.h>
 #define _XTAL_FREQ 8000000
@@ -107,3 +158,12 @@ void main(void)
 
 
 
+//if(x>4)
+//a = 99
+//x = 1 
+//1 > 4 true
+//x = 0000 0001
+//4 = 0000 0100 
+//or  0000 0101 
+//and 0000 0000 
+//x>4 ? a==99 : a = 0

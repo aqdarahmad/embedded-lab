@@ -34,3 +34,29 @@ void main(void)
     }
     return;
 }
+// shift the led every 200 ms
+
+
+
+
+void main()
+{
+TRISB=0X00;
+TRISAbits.TRISA1=1;
+unsigned char olda=0;
+unsigned char led=0x01;
+
+
+while(1)
+{
+    if(PORTAbits.RA1==1 && olda==0)
+    {
+         PORTB=led;
+         __delay_ms(200);
+         led=led<<1;
+         if(led==0)
+         led=0x01;
+    }
+    olda = PORTAbits.RA1;
+}
+}

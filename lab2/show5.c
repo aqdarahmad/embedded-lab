@@ -35,3 +35,28 @@ void main(void)
     }
     return;
 }
+
+
+/// show 7 5 flashing on 7 seg 
+
+// seven segment --- port1 = value
+// port2 = segment number 
+
+char arr[10] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99, 0x92, 0x82, 0xf8, 0x80, 0x98};
+void main()
+{
+   TRISA=0X00;
+   TRISB=0X00;
+   while(1)
+   {
+      PORTA=0X01;
+      PORTB=arr[5];
+      __delay_ms(20);
+      PORTA=0X00;
+      PORTA=0X02;
+      PORTB=arr[7];
+      __delay_ms(20);
+      PORTA=0x00;
+   }
+
+}

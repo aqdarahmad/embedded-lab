@@ -1,6 +1,64 @@
 //Task3: Turn on one led (PORTD) and keep shifting/rotating it every 200ms.
 // Reverse direction of rotation each time a button connected to RB2 is pressed. 
 //Use interrupts.
+// CHANGE DIRECTION by change rotation 
+
+unsigned int direction=0;
+
+void __interrupt() isr(void)
+{
+    if(INTCONbits.RBIF)
+    {
+       direction = !direction;
+    }
+    INTCONbits.RBIF=0;
+}
+void main()
+{  
+    INTCONbits.GIE=1;
+    INTCONbits.RBIE=1;
+    TRISD=0X00;
+    TRISBbits.TRISB2=1;
+    unsigned char led = 0x01;
+    while(1)
+    {
+        PORTD=led;
+        __delay_ms(200);
+        if(direction){
+        led=led<<1;
+        if(led==0)
+          led=0x01;
+        }
+        else {
+            led=led>>1;
+            if(led==0)
+              led=0x80;
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include <xc.h>
 #include <pic18f4550.h> 

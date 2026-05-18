@@ -2,6 +2,68 @@
 // Each time SW0 (RD0) is presses, the displayed number is incremented by 10(up to 90). 
 //Each time SW1 (RD1) is presses, the displayed number is decremented by 10 (down to 00). 
 
+char arr[10] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99, 0x92, 0x82, 0xf8, 0x80, 0x98};
+unsigned int num=5;
+void main(void)
+{
+    TRISB=0X00;
+    TRISA=0X00;
+    TRISD=0XF0;// KEYBAD
+    
+    while(1)
+    {  
+
+        PORTA=0;
+        PORTB=arr[0];
+         PORTA=1;
+        __delay_ms(1);
+         PORTA=0;
+        PORTB=arr[num];
+         PORTA=2;
+        __delay_ms(1);
+        if(PORTDbits.RD7)
+        {
+            if(num<9)
+            num++;
+        }
+
+         PORTD=0b00000010;
+        __delay_ms(1);
+        if(PORTDbits.RD4)
+        {
+            if(num>0)
+            num--;
+        }
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void main()
@@ -16,12 +78,14 @@ void main()
 
 
     while(1)
-    {
-        PORTA=0X01;
+    {  
+        PORTA=0;
         PORTB=arr[0];
+         PORTA=1;
         __delay_ms(1);
-        PORTA=0X02;
+         PORTA=0;
         PORTB=arr[i];
+         PORTA=2;
         __delay_ms(1);
 
         if(PORTDbits.RD0==1 && rd0old==0)
